@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+@theme {
+  /* Definiamo la palette per il laboratorio di legno */
+  --color-wood-50: #fdfaf7;
+  --color-wood-200: #eadbc8;
+  --color-wood-600: #8b5e3c;
+  --color-wood-700: #724d31;
+  --color-wood-900: #3e2a1b;
+  
+  --color-border: var(--color-wood-200);
+}
+
+/* ... il resto del tuo codice (@layer base, @layer components) ... */
