@@ -36,3 +36,41 @@
            transition-all duration-300 hover:border-amber-600 hover:text-amber-600 inline-block text-center text-xs;
   }
 }
+
+
+@keyframes revealText {
+  from {
+    transform: translateY(110%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.animate-reveal-1 {
+  animation: revealText 1.2s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+}
+
+.animate-reveal-2 {
+  animation: revealText 1.2s cubic-bezier(0.77, 0, 0.175, 1) 0.2s forwards;
+}
+
+.animate-reveal-3 {
+  opacity: 0;
+  animation: fadeIn 1s ease-out 0.8s forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slowZoom {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.animate-slow-zoom {
+  animation: slowZoom 20s infinite ease-in-out;
+}
