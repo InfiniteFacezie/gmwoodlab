@@ -1,14 +1,38 @@
 @import "tailwindcss";
 
 @theme {
-  /* Definiamo la palette per il laboratorio di legno */
-  --color-wood-50: #fdfaf7;
-  --color-wood-200: #eadbc8;
-  --color-wood-600: #8b5e3c;
-  --color-wood-700: #724d31;
-  --color-wood-900: #3e2a1b;
+  /* Nuova palette "Best Wooder" - Dark & Gold */
+  --color-wood-50: #1a2420;   /* Grigio/Verde scurissimo per card */
+  --color-wood-200: #334139;  /* Bordi e dettagli scuri */
+  --color-wood-600: #d97706;  /* Ambra/Oro (il nostro colore principale) */
+  --color-wood-700: #b45309;  /* Ambra scuro per hover */
+  --color-wood-900: #0f1713;  /* Il nero del background */
   
-  --color-border: var(--color-wood-200);
+  --color-border: rgba(255, 255, 255, 0.1);
 }
 
-/* ... il resto del tuo codice (@layer base, @layer components) ... */
+@layer base {
+  body {
+    @apply bg-[#0f1713] text-white;
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+@layer components {
+  /* Utility per i container che abbiamo usato nei componenti */
+  .container-custom {
+    @apply container mx-auto px-6;
+  }
+
+  /* Bottoni pronti all'uso con le tue nuove variabili */
+  .btn-primary {
+    @apply bg-amber-600 text-[#0f1713] font-bold uppercase tracking-[0.2em] px-8 py-4 
+           transition-all duration-300 hover:bg-white inline-block text-center text-xs;
+  }
+
+  .btn-secondary {
+    @apply border border-white/20 text-white font-bold uppercase tracking-[0.2em] px-8 py-4 
+           transition-all duration-300 hover:border-amber-600 hover:text-amber-600 inline-block text-center text-xs;
+  }
+}

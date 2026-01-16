@@ -1,42 +1,70 @@
+/* Configurazione Base del Documento */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden; /* Evita scroll orizzontali fastidiosi */
+  background-color: #0f1713; /* Colore scuro profondo */
+  scroll-behavior: smooth;
+  color: #ffffff;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* Selezione Testo Personalizzata */
+::selection {
+  background-color: #d97706; /* Ambra Wood Lab */
+  color: white;
+}
+
+/* Reset del container Root di Vite */
 #root {
-  max-width: 1280px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: left; /* Fondamentale: ripristina l'allineamento a sinistra */
+}
+
+/* Utility per il container (Tailwind lo gestisce, ma questo aiuta la precisione) */
+.container-custom {
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  padding: 0 2rem;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* Scrollbar Personalizzata (Opzionale, per un look totale) */
+::-webkit-scrollbar {
+  width: 8px;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+::-webkit-scrollbar-track {
+  background: #0f1713;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+::-webkit-scrollbar-thumb {
+  background: #d97706;
+  border-radius: 0px;
 }
 
-.card {
-  padding: 2em;
+::-webkit-scrollbar-thumb:hover {
+  background: #b45309;
 }
 
-.read-the-docs {
-  color: #888;
+/* Classi per Bottoni Custom (se non bastano quelle di Tailwind) */
+.btn-primary {
+  @apply bg-amber-600 text-[#0f1713] font-bold uppercase tracking-widest px-8 py-4 transition-all duration-300 hover:bg-white;
+}
+
+.btn-secondary {
+  @apply border border-white/20 text-white font-bold uppercase tracking-widest px-8 py-4 transition-all duration-300 hover:border-amber-600 hover:text-amber-600;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease-out;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
 }
