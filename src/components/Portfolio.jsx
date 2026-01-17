@@ -60,7 +60,7 @@ const Portfolio = () => {
             >
               <img 
                 src="/slider2.jpg" 
-                className="absolute inset-0 h-full object-cover grayscale brightness-50" 
+                className="absolute inset-0 h-full object-cover" 
                 style={{ 
                   width: containerRef.current ? `${containerRef.current.offsetWidth}px` : '100%', 
                   maxWidth: 'none' 
