@@ -1,35 +1,155 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { Star } from 'lucide-react'; 
 
-const PromoBanner = () => {
+const Hero = () => {
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToSection = (e, id) => {
+    e.preventDefault();
+    const element = document.getElementById(id);
+    if (element) {
+      const offset = 100;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
+    }
+  };
+
   return (
-    <section id="promozioni" className="py-20 bg-[#0f1713]">
-      <div className="container mx-auto px-6">
-        <div className="relative bg-amber-600 p-8 md:p-16 overflow-hidden">
-          {/* Decorazione di sfondo */}
-          <div className="absolute top-0 right-0 opacity-10 text-[15rem] font-black leading-none transform translate-x-1/4 -translate-y-1/4 select-none">
-            WOOD
-          </div>
-
-          <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
-            <div className="max-w-2xl">
-              <h2 className="text-3xl md:text-5xl font-black text-[#0f1713] uppercase tracking-tighter leading-none mb-4">
-                Hai persiane da <br />ripristinare?
-              </h2>
-              <p className="text-[#0f1713]/80 font-medium text-lg">
-                Non aspettare che il tempo le rovini. Approfitta della nostra promozione stagionale per un restauro professionale garantito.
-              </p>
+    <section 
+      id="hero" 
+      className="relative min-h-screen flex items-center overflow-hidden bg-[#0f1713] pt-32 lg:pt-20 pb-16"
+    >
+      <div 
+        className="absolute inset-0 opacity-10 pointer-events-none" 
+        style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/carbon-fibre.png")' }} 
+      />
+      
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          
+          <div className="text-left">
+            <div className="flex items-center gap-4 mb-6 animate-reveal-1">
+              <span className="h-[1px] w-12 bg-amber-500"></span>
+              <span className="text-amber-500 uppercase tracking-[0.3em] text-[10px] font-bold">
+                Pogliano Milanese — Est. 2024
+              </span>
             </div>
-
-            <div className="flex flex-col items-center gap-4">
-              <a 
-                href="#contatti" 
-                className="px-10 py-5 bg-[#0f1713] text-white font-bold uppercase tracking-[0.2em] text-sm hover:bg-white hover:text-[#0f1713] transition-all duration-300 shadow-2xl"
+            
+            <h1 className="text-4xl md:text-6xl lg:text-8xl font-black text-white mb-8 leading-[0.95] tracking-tighter">
+              <span className="block overflow-hidden">
+                <span className="block animate-reveal-1">L'ARTE DEL</span>
+              </span>
+              <span className="block overflow-hidden">
+                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-amber-600 animate-reveal-2">
+                  LEGNO VIVO.
+                </span>
+              </span>
+            </h1>
+            
+            <p className="text-base md:text-lg text-gray-400 max-w-lg mb-10 leading-relaxed border-l-2 border-amber-600/30 pl-6 italic animate-reveal-3">
+              "Nel silenzio del legno, risuonano le voci della natura."
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 md:gap-6 animate-reveal-3 mb-10">
+              <button 
+                onClick={(e) => scrollToSection(e, 'contatti')}
+                className="px-8 py-5 bg-amber-600 hover:bg-white hover:text-[#0f1713] text-white font-black transition-all duration-300 transform hover:-translate-y-1 uppercase tracking-widest text-[10px] shadow-2xl"
               >
                 Sopralluogo Gratuito
-              </a>
-              <span className="text-xs font-bold uppercase tracking-widest text-[#0f1713]/60">
-                Offerta Limitata
-              </span>
+              </button>
+              
+              <button 
+                onClick={(e) => scrollToSection(e, 'services')}
+                className="px-8 py-5 border border-white/20 hover:border-amber-500 text-white font-bold transition-all duration-300 text-center uppercase tracking-widest text-[10px]"
+              >
+                Servizi
+              </button>
+            </div>
+
+            {/* --- BADGE RECENSIONI GOOGLE PREMIUM --- */}
+            <div 
+              onClick={(e) => scrollToSection(e, 'testimonianze')}
+              className="relative inline-flex flex-col gap-4 group cursor-pointer transition-all duration-700 delay-700 animate-in fade-in slide-in-from-bottom-4"
+            >
+              <div className="absolute -inset-4 bg-amber-600/5 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+
+              <div className="flex items-center gap-3 relative z-10">
+                <span className="text-amber-500 font-black text-[10px] uppercase tracking-[0.4em]">
+                  Reputazione Verificata
+                </span>
+                <div className="h-[1px] w-10 bg-gradient-to-r from-amber-500/50 to-transparent"></div>
+              </div>
+
+              <div className="relative z-10 flex items-center gap-5 bg-white/[0.03] border border-white/5 backdrop-blur-sm p-4 pr-8 rounded-2xl group-hover:bg-white/[0.05] group-hover:border-amber-500/30 transition-all duration-500 shadow-2xl">
+                <div className="flex -space-x-3">
+                  {['S', 'M', 'R'].map((initial, i) => (
+                    <div 
+                      key={i} 
+                      className="w-10 h-10 rounded-full border-2 border-[#0f1713] bg-gradient-to-br from-amber-600 to-amber-800 flex items-center justify-center text-xs font-black text-white shadow-xl transition-transform group-hover:-translate-y-1"
+                    >
+                      {initial}
+                    </div>
+                  ))}
+                </div>
+                
+                <div className="flex flex-col border-l border-white/10 pl-5">
+                  <div className="flex items-center gap-1.5 mb-1">
+                    <div className="flex gap-0.5">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} size={13} className="fill-amber-500 text-amber-500" />
+                      ))}
+                    </div>
+                    <span className="text-white font-black text-sm ml-1">5.0</span>
+                  </div>
+                  
+                  <div className="flex items-center gap-2">
+                    <img 
+                      src="https://www.gstatic.com/images/branding/product/1x/googleg_48dp.png" 
+                      alt="Google" 
+                      className="w-3.5 h-3.5 object-contain" 
+                    />
+                    <p className="text-gray-400 text-[10px] uppercase tracking-[0.2em]">
+                      Recensioni <span className="text-white font-bold">Ufficiali</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="relative mt-12 lg:mt-0">
+            <div 
+              className="relative z-10 overflow-hidden shadow-luxury border border-white/5"
+              style={{ transform: `translateY(${scrollY * 0.08}px)` }}
+            >
+              <img 
+                src="/uu.jpg" 
+                alt="Bottega GMWoodLab" 
+                className="w-full h-[450px] md:h-[650px] object-cover grayscale-[0.2] hover:grayscale-0 transition-all duration-1000 scale-105 hover:scale-100"
+              />
+            </div>
+            
+            <div className="absolute -top-10 -right-10 w-64 h-64 bg-amber-600/5 -z-10 blur-[120px] animate-pulse"></div>
+            
+            <div 
+              className="absolute -bottom-6 -right-4 md:-bottom-8 md:-right-8 p-6 md:p-10 bg-amber-600 text-[#0f1713] hidden sm:block shadow-luxury"
+              style={{ transform: `translateY(${scrollY * -0.05}px)` }}
+            >
+              <p className="text-3xl md:text-5xl font-black leading-none italic">100%</p>
+              <p className="text-[8px] md:text-[10px] uppercase tracking-[0.3em] font-black mt-2">Artigianato Italiano</p>
             </div>
           </div>
         </div>
@@ -38,4 +158,4 @@ const PromoBanner = () => {
   );
 };
 
-export default PromoBanner;
+export default Hero;

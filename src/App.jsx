@@ -18,34 +18,34 @@ function App() {
       <Navbar />
       
       <main className="relative z-10">
-        {/* HERO: Sfondo originale wood-texture */}
+        {/* 1. HERO: Sfondo originale wood-texture */}
         <div className="wood-texture-bg">
           <Hero />
         </div>
         
-        {/* PROCESSO: Colore leggermente più chiaro per staccare */}
+        {/* 2. PROCESSO: Colore leggermente più chiaro per staccare */}
         <div className="bg-[#131d18] -mt-20 pt-20 pb-10 border-y border-white/[0.02]">
           <Process /> 
         </div>
         
-        {/* SERVIZI: Torna allo scuro profondo per far risaltare le card ambrate */}
-        <div className="bg-[#0f1713] relative z-20">
-          <Services />
-        </div>
-        
-        {/* PORTFOLIO: Un blocco "Premium Black" con texture */}
-        <div className="bg-[#0a0f0d] wood-texture-bg -mt-32 pt-32 pb-20">
-          <Portfolio />
-        </div>
-        
-        {/* TESTIMONIANZE: Sfondo Forest Dark */}
+         {/* 3. TESTIMONIANZE: Posizionate strategicamente dopo il portfolio per dare fiducia */}
         <div className="bg-[#0f1713] border-t border-white/[0.02]">
           <Testimonials />
         </div>
         
+        {/* 4. PORTFOLIO: Spostato prima dei servizi per mostrare subito il lavoro */}
+        <div className="bg-[#0a0f0d] wood-texture-bg pt-20 pb-10">
+          <Portfolio />
+        </div>
+
+        {/* 5. SERVIZI: Torna allo scuro profondo per chiudere la spiegazione tecnica */}
+        <div className="bg-[#0a0f0d] relative z-20 pt-10 pb-20">
+          <Services />
+        </div>
+        
         <PromoBanner />
         
-        {/* CONTATTI: Il colore più scuro per chiudere */}
+        {/* 6. CONTATTI: Chiusura */}
         <div className="bg-[#0a0f0d]">
           <Contact />
         </div>

@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from 'react';
-import { Hammer, PenTool, Ruler } from 'lucide-react'; // Icone più attinenti alla falegnameria
+import React from 'react';
+import { Hammer, PenTool, Ruler } from 'lucide-react';
 
 const services = [
   {
@@ -23,77 +23,57 @@ const services = [
 ];
 
 const Services = () => {
-  const sectionRef = useRef(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('opacity-100', 'translate-y-0');
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    const cards = sectionRef.current.querySelectorAll('.service-card');
-    cards.forEach((card) => observer.observe(card));
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <section id="services" ref={sectionRef} className="py-32 bg-transparent relative overflow-hidden">
-      <div className="container mx-auto px-6">
+    /* SFONDO SOLIDO E SICURO */
+    <section id="services" className="py-32 bg-[#070a09] relative">
+      
+      {/* Glow ambrato per dare profondità e illuminare l'area */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+        <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-amber-600/10 blur-[120px] rounded-full" />
+      </div>
+      
+      <div className="container mx-auto px-6 relative z-10">
         
-        {/* Header Sezione */}
-        <div className="mb-24 service-card opacity-0 translate-y-10 transition-all duration-1000 ease-out text-center md:text-left">
+        {/* Header Sezione - SEMPRE VISIBILE */}
+        <div className="mb-24 text-center md:text-left">
           <div className="flex items-center justify-center md:justify-start gap-4 mb-4">
             <span className="h-[1px] w-12 bg-amber-600"></span>
-            <span className="text-amber-500 uppercase tracking-[0.4em] text-[10px] font-bold">Eccellenza Artigiana</span>
+            <span className="text-amber-500 uppercase tracking-[0.4em] text-[10px] font-bold">Lavorazioni d'Atelier</span>
           </div>
           <h2 className="text-5xl md:text-7xl font-black text-white uppercase tracking-tighter leading-none">
             Soluzioni <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-amber-600 italic">In Legno</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-amber-600 italic">Su Misura</span>
           </h2>
         </div>
 
-        {/* Griglia Card Evoluta */}
+        {/* Griglia Card - SEMPRE VISIBILE */}
         <div className="grid md:grid-cols-3 gap-8">
-          {services.map((s, index) => (
+          {services.map((s) => (
             <div 
               key={s.id} 
-              style={{ transitionDelay: `${index * 200}ms` }}
-              className="service-card opacity-0 translate-y-10 group relative p-10 bg-[#0a0f0d]/50 border border-white/5 hover:border-amber-600/30 transition-all duration-700 ease-out shadow-luxury"
+              className="group relative p-10 bg-[#0a0f0d] border border-white/5 hover:border-amber-600/30 transition-all duration-500 shadow-2xl"
             >
-              {/* Effetto Vetro/Luce interno */}
-              <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-              
-              {/* Numero Sfondo Materico */}
-              <span className="text-9xl font-black text-white/[0.01] absolute -top-8 -right-4 group-hover:text-amber-600/[0.03] transition-all duration-1000 select-none">
-                {s.id}
-              </span>
+              {/* Effetto luce al passaggio */}
+              <div className="absolute inset-0 bg-gradient-to-br from-amber-600/[0.05] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               
               <div className="relative z-10">
-                {/* Icona con cerchio ambrato soffuso */}
-                <div className="mb-10 w-16 h-16 border border-white/10 flex items-center justify-center text-amber-500 group-hover:border-amber-500 group-hover:bg-amber-500/5 transition-all duration-700">
+                <div className="mb-10 w-16 h-16 border border-white/10 flex items-center justify-center text-amber-500 group-hover:border-amber-500 group-hover:bg-amber-500/5 transition-all duration-500">
                   {s.icon}
                 </div>
 
-                <h3 className="text-2xl font-bold text-white mb-6 uppercase tracking-wider group-hover:text-amber-500 transition-colors duration-500">
+                <h3 className="text-2xl font-bold text-white mb-6 uppercase tracking-wider group-hover:text-amber-500 transition-colors">
                   {s.title}
                 </h3>
                 
-                <p className="text-gray-400 leading-relaxed text-sm mb-12 font-normal">
+                <p className="text-gray-400 leading-relaxed text-sm mb-12">
                   {s.description}
                 </p>
 
-                {/* Linea di progresso artigianale */}
                 <div className="flex items-center gap-4">
                   <div className="h-[1px] flex-grow bg-white/10 overflow-hidden">
-                    <div className="h-full w-0 bg-amber-600 group-hover:w-full transition-all duration-1000 ease-in-out" />
+                    <div className="h-full w-0 bg-amber-600 group-hover:w-full transition-all duration-700" />
                   </div>
-                  <span className="text-[10px] text-amber-600 font-bold tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-700">Dettagli</span>
+                  <span className="text-[10px] text-amber-600 font-bold tracking-widest opacity-0 group-hover:opacity-100 transition-opacity uppercase">Dettagli</span>
                 </div>
               </div>
             </div>
