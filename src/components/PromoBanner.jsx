@@ -1,156 +1,81 @@
-import React, { useState, useEffect } from 'react';
-import { Star } from 'lucide-react'; 
+import React from 'react';
+import { ShieldCheck, ArrowRight, Wind } from 'lucide-react';
 
-const Hero = () => {
-  const [scrollY, setScrollY] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
+const PromoBanner = () => {
   const scrollToSection = (e, id) => {
     e.preventDefault();
     const element = document.getElementById(id);
     if (element) {
-      const offset = 100;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - offset;
-
       window.scrollTo({
-        top: offsetPosition,
+        top: element.offsetTop - 80,
         behavior: "smooth"
       });
     }
   };
 
   return (
-    <section 
-      id="hero" 
-      className="relative min-h-screen flex items-center overflow-hidden bg-[#0f1713] pt-32 lg:pt-20 pb-16"
-    >
-      <div 
-        className="absolute inset-0 opacity-10 pointer-events-none" 
-        style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/carbon-fibre.png")' }} 
-      />
+    <section id="promo" className="relative py-24 overflow-hidden bg-[#0a0f0d]">
+      {/* Background Decorativo */}
+      <div className="absolute inset-0 opacity-5 pointer-events-none" 
+           style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/wood-pattern.png")' }} />
       
       <div className="container mx-auto px-6 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          
-          <div className="text-left">
-            <div className="flex items-center gap-4 mb-6 animate-reveal-1">
-              <span className="h-[1px] w-12 bg-amber-500"></span>
-              <span className="text-amber-500 uppercase tracking-[0.3em] text-[10px] font-bold">
-                Pogliano Milanese — Est. 2024
-              </span>
-            </div>
+        <div className="bg-gradient-to-br from-amber-600 to-amber-700 p-1 md:p-2 rounded-[2rem] shadow-2xl">
+          <div className="bg-[#0f1713] rounded-[1.8rem] p-8 md:p-16 flex flex-col lg:flex-row items-center justify-between gap-12">
             
-            <h1 className="text-4xl md:text-6xl lg:text-8xl font-black text-white mb-8 leading-[0.95] tracking-tighter">
-              <span className="block overflow-hidden">
-                <span className="block animate-reveal-1">L'ARTE DEL</span>
-              </span>
-              <span className="block overflow-hidden">
-                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-amber-600 animate-reveal-2">
-                  LEGNO VIVO.
-                </span>
-              </span>
-            </h1>
-            
-            <p className="text-base md:text-lg text-gray-400 max-w-lg mb-10 leading-relaxed border-l-2 border-amber-600/30 pl-6 italic animate-reveal-3">
-              "Nel silenzio del legno, risuonano le voci della natura."
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 md:gap-6 animate-reveal-3 mb-10">
-              <button 
-                onClick={(e) => scrollToSection(e, 'contatti')}
-                className="px-8 py-5 bg-amber-600 hover:bg-white hover:text-[#0f1713] text-white font-black transition-all duration-300 transform hover:-translate-y-1 uppercase tracking-widest text-[10px] shadow-2xl"
-              >
-                Sopralluogo Gratuito
-              </button>
-              
-              <button 
-                onClick={(e) => scrollToSection(e, 'services')}
-                className="px-8 py-5 border border-white/20 hover:border-amber-500 text-white font-bold transition-all duration-300 text-center uppercase tracking-widest text-[10px]"
-              >
-                Servizi
-              </button>
-            </div>
-
-            {/* --- BADGE RECENSIONI GOOGLE PREMIUM --- */}
-            <div 
-              onClick={(e) => scrollToSection(e, 'testimonianze')}
-              className="relative inline-flex flex-col gap-4 group cursor-pointer transition-all duration-700 delay-700 animate-in fade-in slide-in-from-bottom-4"
-            >
-              <div className="absolute -inset-4 bg-amber-600/5 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-
-              <div className="flex items-center gap-3 relative z-10">
-                <span className="text-amber-500 font-black text-[10px] uppercase tracking-[0.4em]">
-                  Reputazione Verificata
-                </span>
-                <div className="h-[1px] w-10 bg-gradient-to-r from-amber-500/50 to-transparent"></div>
+            {/* Contenuto Testuale */}
+            <div className="lg:w-2/3 text-center lg:text-left">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-600/10 border border-amber-600/20 mb-6">
+                <Wind size={16} className="text-amber-500 animate-pulse" />
+                <span className="text-amber-500 font-black text-[10px] uppercase tracking-[0.2em]">Manutenzione Stagionale</span>
               </div>
+              
+              <h2 className="text-4xl md:text-6xl font-black text-white uppercase tracking-tighter leading-none mb-6">
+                Hai persiane da <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-amber-500 italic">Ripristinare?</span>
+              </h2>
+              
+              <p className="text-gray-400 text-lg max-w-xl mb-8 leading-relaxed font-light">
+                Non aspettare che il tempo rovini l'anima del legno. Offriamo un servizio di 
+                <span className="text-white font-bold"> restyling completo e protezione </span> 
+                contro gli agenti atmosferici con finiture nanotecnologiche.
+              </p>
 
-              <div className="relative z-10 flex items-center gap-5 bg-white/[0.03] border border-white/5 backdrop-blur-sm p-4 pr-8 rounded-2xl group-hover:bg-white/[0.05] group-hover:border-amber-500/30 transition-all duration-500 shadow-2xl">
-                <div className="flex -space-x-3">
-                  {['S', 'M', 'R'].map((initial, i) => (
-                    <div 
-                      key={i} 
-                      className="w-10 h-10 rounded-full border-2 border-[#0f1713] bg-gradient-to-br from-amber-600 to-amber-800 flex items-center justify-center text-xs font-black text-white shadow-xl transition-transform group-hover:-translate-y-1"
-                    >
-                      {initial}
-                    </div>
-                  ))}
+              <div className="flex flex-wrap justify-center lg:justify-start gap-6 text-white/60 text-xs font-bold uppercase tracking-widest">
+                <div className="flex items-center gap-2">
+                  <ShieldCheck size={18} className="text-amber-500" /> Sverniciatura Ecologica
+                </div>
+                <div className="flex items-center gap-2">
+                  <ShieldCheck size={18} className="text-amber-500" /> Vernici High-Tech
+                </div>
+              </div>
+            </div>
+
+            {/* Azione / Prezzo */}
+            <div className="lg:w-1/3 w-full">
+              <div className="bg-white/[0.03] border border-white/5 p-8 rounded-3xl text-center backdrop-blur-sm relative group">
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-amber-600 text-[#0f1713] px-4 py-1 text-[10px] font-black uppercase tracking-widest rounded-full">
+                  Promo Inverno
                 </div>
                 
-                <div className="flex flex-col border-l border-white/10 pl-5">
-                  <div className="flex items-center gap-1.5 mb-1">
-                    <div className="flex gap-0.5">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} size={13} className="fill-amber-500 text-amber-500" />
-                      ))}
-                    </div>
-                    <span className="text-white font-black text-sm ml-1">5.0</span>
-                  </div>
-                  
-                  <div className="flex items-center gap-2">
-                    <img 
-                      src="https://www.gstatic.com/images/branding/product/1x/googleg_48dp.png" 
-                      alt="Google" 
-                      className="w-3.5 h-3.5 object-contain" 
-                    />
-                    <p className="text-gray-400 text-[10px] uppercase tracking-[0.2em]">
-                      Recensioni <span className="text-white font-bold">Ufficiali</span>
-                    </p>
-                  </div>
+                <p className="text-gray-500 text-xs uppercase tracking-widest mb-2">A partire da</p>
+                <div className="flex items-center justify-center gap-1 mb-8">
+                  <span className="text-5xl font-black text-white italic">PROMO</span>
                 </div>
+
+                <button 
+                  onClick={(e) => scrollToSection(e, 'contatti')}
+                  className="w-full py-5 bg-amber-600 hover:bg-white text-[#0f1713] font-black uppercase tracking-widest text-xs transition-all duration-300 flex items-center justify-center gap-3 group-hover:shadow-[0_0_30px_rgba(217,119,6,0.3)]"
+                >
+                  Richiedi Analisi Stato <ArrowRight size={16} />
+                </button>
+                
+                <p className="text-[9px] text-gray-600 mt-4 uppercase tracking-tighter">
+                  *Sopralluogo gratuito entro 20km da Pogliano M.se
+                </p>
               </div>
             </div>
-          </div>
 
-          <div className="relative mt-12 lg:mt-0">
-            <div 
-              className="relative z-10 overflow-hidden shadow-luxury border border-white/5"
-              style={{ transform: `translateY(${scrollY * 0.08}px)` }}
-            >
-              <img 
-                src="/uu.jpg" 
-                alt="Bottega GMWoodLab" 
-                className="w-full h-[450px] md:h-[650px] object-cover grayscale-[0.2] hover:grayscale-0 transition-all duration-1000 scale-105 hover:scale-100"
-              />
-            </div>
-            
-            <div className="absolute -top-10 -right-10 w-64 h-64 bg-amber-600/5 -z-10 blur-[120px] animate-pulse"></div>
-            
-            <div 
-              className="absolute -bottom-6 -right-4 md:-bottom-8 md:-right-8 p-6 md:p-10 bg-amber-600 text-[#0f1713] hidden sm:block shadow-luxury"
-              style={{ transform: `translateY(${scrollY * -0.05}px)` }}
-            >
-              <p className="text-3xl md:text-5xl font-black leading-none italic">100%</p>
-              <p className="text-[8px] md:text-[10px] uppercase tracking-[0.3em] font-black mt-2">Artigianato Italiano</p>
-            </div>
           </div>
         </div>
       </div>
@@ -158,4 +83,4 @@ const Hero = () => {
   );
 };
 
-export default Hero;
+export default PromoBanner;
