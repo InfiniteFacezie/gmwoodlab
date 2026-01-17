@@ -1,112 +1,73 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 
 const Navbar = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const scrollToSection = (id) => {
-    setIsOpen(false);
-    const element = document.getElementById(id);
-    if (element) {
-      const offset = 80;
-      const bodyRect = document.body.getBoundingClientRect().top;
-      const elementRect = element.getBoundingClientRect().top;
-      const elementPosition = elementRect - bodyRect;
-      const offsetPosition = elementPosition - offset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-    }
-  };
-
   const navLinks = [
-    { name: 'servizi', id: 'services' },      // ID tecnico: services
-    { name: 'portfolio', id: 'portfolio' },    // ID tecnico: portfolio
-    { name: 'processo', id: 'process' },       // ID tecnico: process
-    { name: 'contatti', id: 'contatti' }        // ID tecnico: contact
+    { name: 'Servizi', href: '#services' },
+    { name: 'Portfolio', href: '#portfolio' },
+    { name: 'Processo', href: '#process' },
+    { name: 'Contatti', href: '#contatti' },
   ];
 
   return (
-    <nav className={`fixed w-full z-[100] transition-all duration-500 ${
-      isScrolled || isOpen ? 'bg-[#0f1713]/95 backdrop-blur-md py-3 shadow-2xl' : 'bg-transparent py-6'
-    }`}>
-      <div className="container mx-auto px-6 flex items-center justify-between">
-        
-        {/* LOGO AREA */}
-        <div 
-          className="flex items-center cursor-pointer group z-[110]"
-          onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); setIsOpen(false); }}
-        >
-          <img 
-            src="/logo.png" 
-            alt="GMWoodLab Logo" 
-            className="h-10 md:h-12 w-auto transition-transform duration-500 group-hover:scale-110"
-          />
-          <div className="ml-3">
-            <span className="text-white font-black tracking-tighter text-xl block leading-none">GM</span>
-            <span className="text-amber-600 text-[10px] uppercase tracking-[0.3em] font-bold">WoodLab</span>
+    <nav className="fixed w-full z-[100] transition-all duration-300">
+      {/* Barra principale: aggiungiamo un backdrop-blur per separarla dai contenuti */}
+      <div className="bg-[#0f1713]/80 backdrop-blur-md border-b border-white/5">
+        <div className="container mx-auto px-6 py-4 flex justify-between items-center">
+          
+          {/* Logo */}
+          <div className="z-[110]">
+            <span className="text-white font-black tracking-tighter text-xl">GM</span>
+            <span className="text-amber-600 font-light text-xs ml-2 uppercase tracking-widest">WoodLab</span>
           </div>
-        </div>
 
-        {/* DESKTOP MENU */}
-        <div className="hidden md:flex items-center space-x-10">
-          {navLinks.map((link) => (
-            <button
-              key={link.id}
-              onClick={() => scrollToSection(link.id)}
-              className="text-[11px] uppercase tracking-[0.3em] text-gray-300 hover:text-amber-500 transition-colors duration-300 font-bold"
-            >
-              {link.name}
-            </button>
-          ))}
-          <button 
-            onClick={() => scrollToSection('contatti')}
-            className="px-6 py-2 border border-amber-600/50 text-amber-500 text-[10px] uppercase tracking-widest font-bold hover:bg-amber-600 hover:text-white transition-all duration-300"
-          >
-            Preventivo
-          </button>
-        </div>
+          {/* Desktop Nav */}
+          <div className="hidden md:flex items-center gap-8">
+            {navLinks.map((link) => (
+              <a key={link.name} href={link.href} className="text-white/70 hover:text-amber-600 text-[10px] uppercase tracking-[0.3em] font-bold transition-colors">
+                {link.name}
+              </a>
+            ))}
+            <a href="#contatti" className="border border-amber-600 text-amber-600 px-4 py-2 text-[10px] uppercase tracking-widest font-black hover:bg-amber-600 hover:text-[#0f1713] transition-all">
+              Preventivo
+            </a>
+          </div>
 
-        {/* MOBILE HAMBURGER ICON */}
-        <div className="md:hidden z-[110]">
+          {/* Mobile Toggle: Z-index altissimo per restare sempre visibile */}
           <button 
+            className="md:hidden text-white z-[110] p-2"
             onClick={() => setIsOpen(!isOpen)}
-            className="text-white p-2 focus:outline-none"
           >
-            {isOpen ? <X size={30} strokeWidth={1.5} /> : <Menu size={30} strokeWidth={1.5} />}
+            {isOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
         </div>
+      </div>
 
-        {/* MOBILE MENU OVERLAY */}
-        <div className={`fixed inset-0 bg-[#0f1713] transition-all duration-500 ease-in-out ${
-          isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
-        } md:hidden flex flex-col items-center justify-center space-y-8`}>
+      {/* Mobile Menu Overlay */}
+      <div className={`
+        fixed inset-0 bg-[#0f1713] z-[105] flex flex-col items-center justify-center transition-transform duration-500 ease-in-out
+        ${isOpen ? 'translate-y-0' : '-translate-y-full'}
+      `}>
+        <div className="flex flex-col items-center gap-8">
           {navLinks.map((link) => (
-            <button
-              key={link.id}
-              onClick={() => scrollToSection(link.id)}
-              className="text-2xl uppercase tracking-[0.4em] text-white font-black hover:text-amber-500 transition-colors"
+            <a 
+              key={link.name} 
+              href={link.href}
+              onClick={() => setIsOpen(false)}
+              className="text-white text-3xl font-black uppercase tracking-tighter hover:text-amber-600 transition-colors"
             >
               {link.name}
-            </button>
+            </a>
           ))}
-          <button 
-            onClick={() => scrollToSection('contatti')}
-            className="mt-4 px-10 py-4 bg-amber-600 text-white text-xs uppercase tracking-[0.3em] font-bold"
+          <a 
+            href="#contatti"
+            onClick={() => setIsOpen(false)}
+            className="mt-4 bg-amber-600 text-[#0f1713] px-8 py-4 font-black uppercase tracking-[0.2em] text-sm"
           >
             Richiedi Preventivo
-          </button>
+          </a>
         </div>
       </div>
     </nav>
