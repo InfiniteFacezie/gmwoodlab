@@ -1,63 +1,44 @@
 @import "tailwindcss";
 
 @theme {
-  /* Nuova palette "Best Wooder" - Dark & Gold */
-  --color-wood-50: #1a2420;   /* Grigio/Verde scurissimo per card */
-  --color-wood-200: #334139;  /* Bordi e dettagli scuri */
-  --color-wood-600: #d97706;  /* Ambra/Oro (il nostro colore principale) */
-  --color-wood-700: #b45309;  /* Ambra scuro per hover */
-  --color-wood-900: #0f1713;  /* Il nero del background */
-  
+  --color-wood-50: #1a2420;
+  --color-wood-200: #334139;
+  --color-wood-600: #d97706;
+  --color-wood-700: #b45309;
+  --color-wood-900: #0f1713;
   --color-border: rgba(255, 255, 255, 0.1);
 }
 
 @layer base {
-  body {
-    @apply bg-[#0f1713] text-white;
-    margin: 0;
-    font-family: 'Inter', sans-serif;
+  /* Forziamo il peso font sui titoli per il look monumentale */
+  h1, h2, h3, h4 {
+    @apply font-black tracking-tighter text-white uppercase;
   }
 }
 
 @layer components {
-  /* Utility per i container che abbiamo usato nei componenti */
-  .container-custom {
-    @apply container mx-auto px-6;
-  }
-
-  /* Bottoni pronti all'uso con le tue nuove variabili */
   .btn-primary {
-    @apply bg-amber-600 text-[#0f1713] font-bold uppercase tracking-[0.2em] px-8 py-4 
-           transition-all duration-300 hover:bg-white inline-block text-center text-xs;
+    @apply bg-amber-600 text-[#0f1713] font-black uppercase tracking-[0.2em] px-8 py-5 
+           transition-all duration-500 hover:bg-white inline-block text-center text-[10px];
   }
 
   .btn-secondary {
-    @apply border border-white/20 text-white font-bold uppercase tracking-[0.2em] px-8 py-4 
-           transition-all duration-300 hover:border-amber-600 hover:text-amber-600 inline-block text-center text-xs;
+    @apply border border-white/20 text-white font-bold uppercase tracking-[0.2em] px-8 py-5 
+           transition-all duration-500 hover:border-amber-600 hover:text-amber-600 inline-block text-center text-[10px];
   }
 }
 
-
+/* --- ANIMAZIONI HERO --- */
 @keyframes revealText {
-  from {
-    transform: translateY(110%);
-  }
-  to {
-    transform: translateY(0);
-  }
+  from { transform: translateY(110%); }
+  to { transform: translateY(0); }
 }
 
-.animate-reveal-1 {
-  animation: revealText 1.2s cubic-bezier(0.77, 0, 0.175, 1) forwards;
-}
-
-.animate-reveal-2 {
-  animation: revealText 1.2s cubic-bezier(0.77, 0, 0.175, 1) 0.2s forwards;
-}
-
-.animate-reveal-3 {
-  opacity: 0;
-  animation: fadeIn 1s ease-out 0.8s forwards;
+.animate-reveal-1 { animation: revealText 1.2s cubic-bezier(0.77, 0, 0.175, 1) forwards; }
+.animate-reveal-2 { animation: revealText 1.2s cubic-bezier(0.77, 0, 0.175, 1) 0.2s forwards; }
+.animate-reveal-3 { 
+  opacity: 0; 
+  animation: fadeIn 1s ease-out 0.8s forwards; 
 }
 
 @keyframes fadeIn {
@@ -67,10 +48,8 @@
 
 @keyframes slowZoom {
   0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
+  50% { transform: scale(1.05); }
   100% { transform: scale(1); }
 }
 
-.animate-slow-zoom {
-  animation: slowZoom 20s infinite ease-in-out;
-}
+.animate-slow-zoom { animation: slowZoom 20s infinite ease-in-out; }

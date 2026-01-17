@@ -1,8 +1,8 @@
 import Navbar from "./components/Navbar.jsx";
 import Hero from "./components/Hero.jsx";
-import Process from "./components/Process.jsx"; // Lo storytelling del workflow
+import Process from "./components/Process.jsx"; 
 import Services from "./components/Services.jsx";
-import Portfolio from "./components/Portfolio.jsx"; // La galleria e lo slider
+import Portfolio from "./components/Portfolio.jsx"; 
 import PromoBanner from "./components/PromoBanner.jsx";
 import Contact from "./components/Contact.jsx";
 import BackToTop from "./components/BackToTop.jsx";
@@ -10,27 +10,19 @@ import Testimonials from "./components/Testimonials.jsx";
 
 function App() {
   return (
-    <div className="min-h-screen bg-[#0f1713] selection:bg-amber-600 selection:text-white">
+    <div className="relative min-h-screen bg-[#0f1713] wood-texture-bg selection:bg-amber-600 selection:text-white">
       <Navbar />
-      <main>
-        {/* L'ingresso: l'anima del brand */}
+      
+      <main className="relative z-10">
         <Hero />
-        
-        {/* Come lavoriamo: crea fiducia */}
         <Process /> 
-        
-        {/* Cosa facciamo: i servizi tecnici */}
         <Services />
-        
-        {/* La prova del valore: i lavori fatti */}
         <Portfolio />
-        <Testimonials /> {/* Aggiungila qui */}
-        {/* L'offerta diretta */}
+        <Testimonials />
         <PromoBanner />
-        
-        {/* Il contatto finale */}
         <Contact />
       </main>
+
       <BackToTop />
     </div>
   );
