@@ -42,7 +42,7 @@ const Services = () => {
   }, []);
 
   return (
-    <section id="servizi" ref={sectionRef} className="py-32 bg-[#0f1713] border-t border-white/5 overflow-hidden">
+    <section id="services" ref={sectionRef} className="py-32 bg-[#0f1713] border-t border-white/5 overflow-hidden">
       <div className="container mx-auto px-6">
         
         {/* Header Sezione Animato */}

@@ -30,7 +30,8 @@ const steps = [
 
 const Process = () => {
   return (
-    <section className="py-32 bg-[#0a0f0d] border-t border-white/5">
+    /* AGGIUNTO ID="process" QUI SOTTO */
+    <section id="process" className="py-32 bg-[#0a0f0d] border-t border-white/5">
       <div className="container mx-auto px-6">
         <div className="text-center mb-24">
           <span className="text-amber-500 uppercase tracking-[0.5em] text-[10px] font-bold">Metodo Artigianale</span>
