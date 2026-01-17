@@ -17,11 +17,25 @@ const Navbar = () => {
       <div className="bg-[#0f1713]/80 backdrop-blur-md border-b border-white/5">
         <div className="container mx-auto px-6 py-4 flex justify-between items-center">
           
-          {/* Logo */}
-          <div className="z-[110]">
-            <span className="text-white font-black tracking-tighter text-xl">GM</span>
-            <span className="text-amber-600 font-light text-xs ml-2 uppercase tracking-widest">WoodLab</span>
-          </div>
+       {/* Logo */}
+<div className="z-[110] flex items-center gap-3">
+  <a href="#hero" className="flex items-center gap-3 group">
+    {/* Immagine Logo */}
+    <img 
+      src="/logo.png" 
+      alt="GM Wood Lab Logo" 
+      className="h-10 w-auto object-contain group-hover:scale-110 transition-transform duration-300" 
+    />
+    
+    {/* Testo Logo */}
+    <div className="flex flex-col md:flex-row md:items-baseline">
+      <span className="text-white font-black tracking-tighter text-xl leading-none">GM</span>
+      <span className="text-amber-600 font-light text-[10px] md:ml-2 uppercase tracking-[0.3em] leading-none">
+        WoodLab
+      </span>
+    </div>
+  </a>
+</div>
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center gap-8">

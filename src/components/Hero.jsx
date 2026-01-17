@@ -33,7 +33,10 @@ const Hero = () => {
       className="relative min-h-screen flex items-center overflow-hidden bg-[#0f1713] pt-32 lg:pt-20 pb-16"
     >
       {/* Background decorativo più coerente col brand */}
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/wood-pattern.png')]" />
+    <div 
+    className="absolute inset-0 opacity-10 pointer-events-none" 
+    style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/carbon-fibre.png")' }} 
+  />
       
       <div className="container mx-auto px-6 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
