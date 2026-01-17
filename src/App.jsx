@@ -6,6 +6,7 @@ import Portfolio from "./components/Portfolio.jsx"; // La galleria e lo slider
 import PromoBanner from "./components/PromoBanner.jsx";
 import Contact from "./components/Contact.jsx";
 import BackToTop from "./components/BackToTop.jsx";
+import Testimonials from "./components/Testimonials.jsx";
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
         
         {/* La prova del valore: i lavori fatti */}
         <Portfolio />
-        
+        <Testimonials /> {/* Aggiungila qui */}
         {/* L'offerta diretta */}
         <PromoBanner />
         

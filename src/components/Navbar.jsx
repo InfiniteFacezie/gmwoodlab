@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
 
-  // Effetto per cambiare lo sfondo allo scroll
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -12,68 +11,77 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // FUNZIONE PER LO SCROLL FLUIDO
-  const scrollToSection = (e, id) => {
-    e.preventDefault();
+  const scrollToSection = (id) => {
     const element = document.getElementById(id);
     if (element) {
-      const offset = 80; // Altezza della navbar per non coprire i titoli
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - offset;
+      const offset = 80;
+      const bodyRect = document.body.getBoundingClientRect().top;
+      const elementRect = element.getBoundingClientRect().top;
+      const elementPosition = elementRect - bodyRect;
+      const offsetPosition = elementPosition - offset;
 
       window.scrollTo({
         top: offsetPosition,
-        behavior: "smooth"
+        behavior: 'smooth'
       });
     }
   };
 
+  // Definiamo i link con etichetta e ID corrispondente
+  const navLinks = [
+    { name: 'servizi', id: 'servizi' },
+    { name: 'portfolio', id: 'portfolio' },
+    { name: 'processo', id: 'process' }, // 'processo' è il testo, 'process' è l'ID
+    { name: 'contatti', id: 'contatti' }
+  ];
+
   return (
     <nav className={`fixed w-full z-50 transition-all duration-500 ${
-      isScrolled ? 'bg-[#0f1713]/95 backdrop-blur-lg py-4 shadow-2xl' : 'bg-transparent py-8'
+      isScrolled ? 'bg-[#0f1713]/90 backdrop-blur-md py-3 shadow-2xl' : 'bg-transparent py-6'
     }`}>
-      <div className="container mx-auto px-6 flex justify-between items-center">
+      <div className="container mx-auto px-6 flex items-center justify-between">
         
-        {/* Logo - Cliccandolo si torna su */}
+        {/* LOGO AREA */}
         <div 
-          className="flex flex-col group cursor-pointer" 
+          className="flex items-center cursor-pointer group"
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         >
-          <span className="text-2xl font-black text-white tracking-[0.2em] leading-none group-hover:text-amber-500 transition-colors">
-            GM<span className="text-amber-600">WOOD</span>LAB
-          </span>
-          <div className="flex items-center gap-2 mt-1">
-            <span className="h-[1px] w-4 bg-amber-600"></span>
-            <span className="text-[10px] text-gray-400 uppercase tracking-[0.4em]">Atelier Falegnameria</span>
+          <img 
+            src="/logo.png" 
+            alt="GMWoodLab Logo" 
+            className="h-12 w-auto transition-transform duration-500 group-hover:scale-110"
+          />
+          <div className="ml-3 hidden sm:block">
+            <span className="text-white font-black tracking-tighter text-xl block leading-none">GM</span>
+            <span className="text-amber-600 text-[10px] uppercase tracking-[0.3em] font-bold">WoodLab</span>
           </div>
         </div>
-        
-        {/* Menu Centrale */}
-        <div className="hidden md:flex items-center space-x-12">
-          {['Servizi', 'Promozioni', 'Contatti'].map((item) => (
-            <a 
-              key={item}
-              href={`#${item.toLowerCase()}`} 
-              onClick={(e) => scrollToSection(e, item.toLowerCase())}
-              className="text-xs uppercase tracking-[0.3em] text-gray-300 hover:text-amber-500 transition-all duration-300 relative group"
+
+        {/* MENU LINKS AGGIORNATI */}
+        <div className="hidden md:flex items-center space-x-10">
+          {navLinks.map((link) => (
+            <button
+              key={link.id}
+              onClick={() => scrollToSection(link.id)}
+              className="text-[11px] uppercase tracking-[0.3em] text-gray-300 hover:text-amber-500 transition-colors duration-300 font-bold"
             >
-              {item}
-              <span className="absolute -bottom-2 left-0 w-0 h-[1px] bg-amber-600 transition-all duration-300 group-hover:w-full"></span>
-            </a>
+              {link.name}
+            </button>
           ))}
+          
+          <button 
+            onClick={() => scrollToSection('contatti')}
+            className="px-6 py-2 border border-amber-600/50 text-amber-500 text-[10px] uppercase tracking-widest font-bold hover:bg-amber-600 hover:text-white transition-all duration-300"
+          >
+            Preventivo
+          </button>
         </div>
 
-        {/* Call to Action */}
-        <div className="flex items-center">
-          <a 
-            href="tel:3313007162" 
-            className="group relative px-6 py-2 border border-amber-600/50 overflow-hidden"
-          >
-            <span className="relative z-10 text-xs font-bold uppercase tracking-widest text-white group-hover:text-[#0f1713] transition-colors duration-300">
-              Prenota Consulenza
-            </span>
-            <span className="absolute inset-0 bg-amber-600 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></span>
-          </a>
+        {/* MOBILE MENU ICON */}
+        <div className="md:hidden text-white">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+          </svg>
         </div>
 
       </div>
