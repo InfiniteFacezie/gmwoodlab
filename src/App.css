@@ -104,3 +104,39 @@ html, body {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* Gradiente di fusione tra sezioni */
+section {
+  position: relative;
+  /* Crea una sfumatura che "mangia" i bordi delle sezioni */
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 10%,
+    black 90%,
+    transparent 100%
+  );
+}
+
+/* Rompere la linea orizzontale del Navbar */
+.nav-blur {
+  backdrop-filter: blur(10px);
+  background: linear-gradient(to bottom, rgba(15, 23, 19, 0.9), transparent);
+}
+
+
+
+/* Sfumatura di giunzione per eliminare lo stacco netto tra sfondi diversi */
+.section-blend-top {
+  mask-image: linear-gradient(to bottom, transparent, black 15%);
+}
+
+.section-blend-bottom {
+  mask-image: linear-gradient(to top, transparent, black 15%);
+}
+
+/* Variante di sfondo per le sezioni intermedie */
+.bg-forest-light {
+  background-color: #131d18; /* Un tono di verde bosco leggermente più chiaro */
+  position: relative;
+}
