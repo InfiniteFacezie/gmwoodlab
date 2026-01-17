@@ -12,41 +12,44 @@ function App() {
   return (
     <div className="relative min-h-screen bg-[#0f1713] selection:bg-amber-600 selection:text-white overflow-hidden">
       
-      {/* Linea di continuità che "lega" i diversi colori di sfondo */}
-      <div className="absolute left-1/2 -translate-x-1/2 w-[1px] h-full bg-gradient-to-b from-transparent via-amber-600/10 to-transparent z-0 opacity-20 hidden md:block" />
+      {/* Linea di continuità: aumentata l'opacità per una guida visiva più elegante */}
+      <div className="absolute left-1/2 -translate-x-1/2 w-[1px] h-full bg-gradient-to-b from-transparent via-amber-600/20 to-transparent z-0 opacity-30 hidden md:block" />
 
       <Navbar />
       
       <main className="relative z-10">
-        {/* 1. HERO: Sfondo originale wood-texture */}
+        {/* 1. HERO: Spazio generoso per l'impatto iniziale */}
         <div className="wood-texture-bg">
           <Hero />
         </div>
         
-        {/* 2. PROCESSO: Colore leggermente più chiaro per staccare */}
-        <div className="bg-[#131d18] -mt-20 pt-20 pb-10 border-y border-white/[0.02]">
+        {/* 2. PROCESSO: Aumentato il padding per dare importanza al metodo */}
+        <div className="bg-[#131d18] -mt-24 pt-32 pb-24 border-y border-white/[0.03]">
           <Process /> 
         </div>
         
-         {/* 3. TESTIMONIANZE: Posizionate strategicamente dopo il portfolio per dare fiducia */}
-        <div className="bg-[#0f1713] border-t border-white/[0.02]">
+        {/* 3. TESTIMONIANZE: Isolamento visivo per aumentare la fiducia */}
+        <div className="bg-[#0f1713] py-16 border-b border-white/[0.02]">
           <Testimonials />
         </div>
         
-        {/* 4. PORTFOLIO: Spostato prima dei servizi per mostrare subito il lavoro */}
-        <div className="bg-[#0a0f0d] wood-texture-bg pt-20 pb-10">
+        {/* 4. PORTFOLIO: Spazio ampio per far "parlare" le immagini dei lavori */}
+        <div className="bg-[#0a0f0d] wood-texture-bg py-32 md:py-40">
           <Portfolio />
         </div>
 
-        {/* 5. SERVIZI: Torna allo scuro profondo per chiudere la spiegazione tecnica */}
-        <div className="bg-[#0a0f0d] relative z-20 pt-10 pb-20">
+        {/* 5. SERVIZI: Sfondo più scuro e stacco netto dal Portfolio */}
+        <div className="bg-[#070a09] relative z-20 py-32 md:py-40">
           <Services />
         </div>
         
-        <PromoBanner />
+        {/* 6. PROMO BANNER: Isolato per massima conversione */}
+        <div className="py-12 bg-[#070a09]">
+          <PromoBanner />
+        </div>
         
-        {/* 6. CONTATTI: Chiusura */}
-        <div className="bg-[#0a0f0d]">
+        {/* 7. CONTATTI: Chiusura pulita */}
+        <div className="bg-[#0a0f0d] pt-10">
           <Contact />
         </div>
       </main>
