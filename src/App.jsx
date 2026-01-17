@@ -52,6 +52,34 @@ function App() {
         <div className="bg-[#0a0f0d] pt-10">
           <Contact />
         </div>
+        
+        {/* BARRA FINALE - FOOTER */}
+        <footer className="bg-black py-8 border-t border-white/5 relative z-30">
+          <div className="container mx-auto px-6">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+              
+              {/* P.IVA a sinistra */}
+              <div className="text-[10px] text-gray-500 uppercase tracking-[0.3em] font-medium">
+                P.IVA 13457820960 — © {new Date().getFullYear()} GM WOODLAB
+              </div>
+
+              {/* Credits a destra */}
+              <div className="text-[10px] text-gray-500 uppercase tracking-[0.3em] font-medium">
+                Made with <span className="text-amber-600 animate-pulse">♥</span> by{' '}
+                <a 
+                  href="https://www.theround.it" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-white hover:text-amber-500 transition-colors font-black"
+                >
+                  THE ROUND
+                </a>
+              </div>
+
+            </div>
+          </div>
+        </footer>
+        
       </main>
 
       <BackToTop />

@@ -1,7 +1,35 @@
-import React from 'react';
-import { Phone, MapPin, Mail, ArrowRight } from 'lucide-react';
+import React, { useRef, useState } from 'react';
+import emailjs from '@emailjs/browser';
+import { Phone, MapPin, ArrowRight, CheckCircle, AlertCircle } from 'lucide-react';
 
 const Contact = () => {
+  const form = useRef();
+  const [isSending, setIsSending] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [error, setError] = useState(null);
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+    setIsSending(true);
+    setError(null);
+
+    emailjs.sendForm(
+      'service_pmjqn3s',      // Il tuo Service ID
+      'template_27cvagr',     // Il tuo Template ID
+      form.current, 
+      '2uVJD1Q4wANdwUtVe'      // La tua Public Key
+    )
+      .then((result) => {
+          setIsSuccess(true);
+          setIsSending(false);
+          form.current.reset();
+      }, (error) => {
+          console.error('EmailJS Error:', error);
+          setError("Si è verificato un errore nell'invio. Riprova più tardi.");
+          setIsSending(false);
+      });
+  };
+
   return (
     <section id="contatti" className="py-32 bg-[#0f1713] relative overflow-hidden">
       
@@ -60,58 +88,90 @@ const Contact = () => {
             </div>
           </div>
 
-          {/* COLONNA DESTRA: Il Form "Premium" */}
+          {/* COLONNA DESTRA: Il Form Attivo */}
           <div className="lg:col-span-7">
             <div className="relative p-[1px] bg-gradient-to-br from-white/10 via-transparent to-white/5 shadow-2xl">
               <div className="bg-[#0a0f0d] p-10 md:p-16 relative overflow-hidden">
                 <div className="absolute inset-0 opacity-[0.02] pointer-events-none bg-[url('https://www.transparenttextures.com/patterns/wood-pattern.png')]" />
                 
-                <form className="relative z-10 space-y-10">
-                  <div className="grid md:grid-cols-2 gap-12">
+                {isSuccess ? (
+                  // STATO DI SUCCESSO (Visualizzato dopo l'invio)
+                  <div className="relative z-10 py-12 text-center animate-in fade-in zoom-in duration-500">
+                    <CheckCircle className="mx-auto text-amber-500 mb-6" size={64} />
+                    <h3 className="text-3xl font-black text-white uppercase tracking-tighter mb-4">Ricevuto</h3>
+                    <p className="text-gray-400 font-light mb-10">Grazie per aver contattato GM Woodlab. Ti risponderemo entro 24 ore.</p>
+                    <button 
+                      onClick={() => setIsSuccess(false)}
+                      className="text-amber-500 font-black uppercase tracking-[0.3em] text-[10px] hover:text-white transition-colors border-b border-amber-500/30 pb-1"
+                    >
+                      Invia un nuovo messaggio
+                    </button>
+                  </div>
+                ) : (
+                  // FORM ORIGINALE (Con logica EmailJS)
+                  <form ref={form} onSubmit={sendEmail} className="relative z-10 space-y-10">
+                    <div className="grid md:grid-cols-2 gap-12">
+                      <div className="relative">
+                        <input 
+                          name="name" // Importante per EmailJS {{name}}
+                          type="text" 
+                          required
+                          className="peer w-full bg-transparent border-b border-white/10 py-4 text-white font-light focus:outline-none focus:border-amber-600 transition-colors placeholder-transparent" 
+                          placeholder="Nome"
+                        />
+                        <label className="absolute left-0 -top-4 text-gray-500 text-[9px] uppercase tracking-[0.2em] transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:top-4 peer-focus:-top-4 peer-focus:text-amber-600 font-bold">
+                          Nome Completo
+                        </label>
+                      </div>
+                      
+                      <div className="relative">
+                        <input 
+                          name="email" // Importante per EmailJS {{email}}
+                          type="email" 
+                          required
+                          className="peer w-full bg-transparent border-b border-white/10 py-4 text-white font-light focus:outline-none focus:border-amber-600 transition-colors placeholder-transparent" 
+                          placeholder="Email"
+                        />
+                        <label className="absolute left-0 -top-4 text-gray-500 text-[9px] uppercase tracking-[0.2em] transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:top-4 peer-focus:-top-4 peer-focus:text-amber-600 font-bold">
+                          Email Ufficiale
+                        </label>
+                      </div>
+                    </div>
+
                     <div className="relative">
-                      <input 
-                        type="text" 
-                        id="name"
-                        className="peer w-full bg-transparent border-b border-white/10 py-4 text-white font-light focus:outline-none focus:border-amber-600 transition-colors placeholder-transparent" 
-                        placeholder="Nome"
-                      />
-                      <label htmlFor="name" className="absolute left-0 -top-4 text-gray-500 text-[9px] uppercase tracking-[0.2em] transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:top-4 peer-focus:-top-4 peer-focus:text-amber-600 font-bold">
-                        Nome Completo
+                      <textarea 
+                        name="message" // Importante per EmailJS {{message}}
+                        required
+                        rows="4" 
+                        className="peer w-full bg-transparent border-b border-white/10 py-4 text-white font-light focus:outline-none focus:border-amber-600 transition-colors resize-none placeholder-transparent" 
+                        placeholder="Messaggio"
+                      ></textarea>
+                      <label className="absolute left-0 -top-4 text-gray-500 text-[9px] uppercase tracking-[0.2em] transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:top-4 peer-focus:-top-4 peer-focus:text-amber-600 font-bold">
+                        Dettagli del Progetto
                       </label>
                     </div>
-                    
-                    <div className="relative">
-                      <input 
-                        type="email" 
-                        id="email"
-                        className="peer w-full bg-transparent border-b border-white/10 py-4 text-white font-light focus:outline-none focus:border-amber-600 transition-colors placeholder-transparent" 
-                        placeholder="Email"
-                      />
-                      <label htmlFor="email" className="absolute left-0 -top-4 text-gray-500 text-[9px] uppercase tracking-[0.2em] transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:top-4 peer-focus:-top-4 peer-focus:text-amber-600 font-bold">
-                        Email Ufficiale
-                      </label>
-                    </div>
-                  </div>
 
-                  <div className="relative">
-                    <textarea 
-                      id="message"
-                      rows="4" 
-                      className="peer w-full bg-transparent border-b border-white/10 py-4 text-white font-light focus:outline-none focus:border-amber-600 transition-colors resize-none placeholder-transparent" 
-                      placeholder="Messaggio"
-                    ></textarea>
-                    <label htmlFor="message" className="absolute left-0 -top-4 text-gray-500 text-[9px] uppercase tracking-[0.2em] transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:top-4 peer-focus:-top-4 peer-focus:text-amber-600 font-bold">
-                      Dettagli del Progetto
-                    </label>
-                  </div>
+                    {error && (
+                      <div className="flex items-center gap-2 text-red-500 text-xs italic">
+                        <AlertCircle size={14} /> {error}
+                      </div>
+                    )}
 
-                  <button className="group relative w-full py-7 bg-amber-600 text-[#0f1713] font-black uppercase tracking-[0.4em] text-[11px] overflow-hidden transition-all duration-700 shadow-xl">
-                    <div className="relative z-10 flex items-center justify-center gap-4">
-                      Invia Richiesta <ArrowRight size={18} className="group-hover:translate-x-3 transition-transform duration-500" />
-                    </div>
-                    <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-out" />
-                  </button>
-                </form>
+                    <button 
+                      type="submit" 
+                      disabled={isSending}
+                      className="group relative w-full py-7 bg-amber-600 disabled:bg-gray-800 text-[#0f1713] font-black uppercase tracking-[0.4em] text-[11px] overflow-hidden transition-all duration-700 shadow-xl"
+                    >
+                      <div className="relative z-10 flex items-center justify-center gap-4">
+                        {isSending ? 'Comunicazione in corso...' : 'Invia Richiesta'} 
+                        <ArrowRight size={18} className={isSending ? 'animate-pulse' : 'group-hover:translate-x-3 transition-transform duration-500'} />
+                      </div>
+                      {!isSending && (
+                        <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-out" />
+                      )}
+                    </button>
+                  </form>
+                )}
 
                 <p className="mt-10 text-center text-gray-600 text-[9px] uppercase tracking-[0.3em] font-medium italic">
                   "L'eccellenza richiede tempo. Risponderemo con cura entro 24h."
@@ -122,6 +182,7 @@ const Contact = () => {
 
         </div>
       </div>
+  
     </section>
   );
 };
